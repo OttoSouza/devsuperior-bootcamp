@@ -8,16 +8,16 @@ public class SaleSuccessDTO implements Serializable {
 
     private String sellerName;
     private Long visited;
-    private Long dead;
+    private Long deals;
 
     public SaleSuccessDTO() {
 
     }
 
-    public SaleSuccessDTO(Seller seller, Long visited, Long dead) {
+    public SaleSuccessDTO(Seller seller, Long visited, Long deals) {
         this.sellerName = seller.getName();
         this.visited = visited;
-        this.dead = dead;
+        this.deals = deals;
     }
 
     public String getSellerName() {
@@ -36,11 +36,11 @@ public class SaleSuccessDTO implements Serializable {
         this.visited = visited;
     }
 
-    public Long getDead() {
-        return dead;
+    public Long getDeals() {
+        return deals;
     }
 
-    public void setDead(Long dead) {
-        this.dead = dead;
+    public void setDeals(Long deals) {
+        this.deals = deals;
     }
 }
