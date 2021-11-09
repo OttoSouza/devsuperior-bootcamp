@@ -1,21 +1,40 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
+import { SaleSum } from "service/sales";
+import { BASE_URL } from "utils/request";
+
+type DonoutChartProps = {
+  labels: string[];
+  series: number[];
+};
 
 const Donoutchart = () => {
+  const [data, setData] = useState<DonoutChartProps>({} as DonoutChartProps);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/sales/amount-by-seller`).then((response) => {
+      const data = response.data as SaleSum[];
+      const myLabels = data.map((item) => item.sellerName);
+      const mySeries = data.map((item) => item.sum);
+
+      setData({ labels: myLabels, series: mySeries });
+      console.log(data);
+    });
+  }, []);
+
   const options = {
     legend: {
       show: true,
     },
   };
 
-  const mockData = {
-    series: [477138, 499928, 444867],
-    labels: ["Batman", "Iron man", "thor"],
-  };
+
 
   return (
     <Chart
-      options={{ ...options, labels: mockData.labels }}
-      series={mockData.series}
+      options={{ ...options, labels: data.labels }}
+      series={data.series}
       type="donut"
       height="240"
     />
